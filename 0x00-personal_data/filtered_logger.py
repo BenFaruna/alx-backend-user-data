@@ -12,7 +12,8 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(
-        fields: List[str], redaction: str, message: str, separator: str):
+        fields: List[str], redaction: str, message: str, separator: str
+        ) -> str:
     """function returns the log message obfuscated"""
     pattern = f"(?<={separator})(" + "|".join(fields) + f")=(.+?);"
     message = re.sub(pattern, f"{separator}\\1={redaction};", message)
@@ -57,7 +58,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields):
+    def __init__(self, fields: List[str]):
         """function for initializing the class"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
@@ -90,7 +91,8 @@ def main() -> None:
         row[6] = row[6].strftime('%Y-%m-%d %H:%M:%S')
         for i in range(len(row)):
             data.append(f'{columns[i]}={row[i]}')
-        message = ";".join(data)
+        message = ';'.join(data)
+        message += ';'
 
         logger.info(message)
 

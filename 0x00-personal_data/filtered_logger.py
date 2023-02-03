@@ -90,11 +90,11 @@ def main() -> None:
         row = list(row)
         row[6] = row[6].strftime('%Y-%m-%d %H:%M:%S')
         for i in range(len(row)):
-            data.append(f'{columns[i]}={row[i]}')
-        message = ';'.join(data)
-        message += ';'
+            data.append(f'{columns[i]}={row[i]};')
+        message = ''.join(data)
 
         logger.info(message)
+    db_connect.close()
 
 
 if __name__ == '__main__':

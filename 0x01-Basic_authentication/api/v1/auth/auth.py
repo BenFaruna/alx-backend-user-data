@@ -9,6 +9,11 @@ class Auth:
     """template for all authentication systems"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """returns a boolean for routes that require authentication"""
+        for ex_paths in excluded_paths:
+            if ex_paths.endswith('*'):
+                if path.startswith(ex_paths[:-1]):
+                    return False
+
         if (path is not None) and (not path.endswith('/')):
             path = path + '/'
 

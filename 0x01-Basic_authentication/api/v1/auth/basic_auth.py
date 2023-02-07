@@ -43,7 +43,7 @@ class BasicAuth(Auth):
         elif type(decoded_base64_authorization_header) != str:
             return None, None
 
-        email_pass = decoded_base64_authorization_header.split(':')
+        email_pass = decoded_base64_authorization_header.split(':', 1)
         if len(email_pass) != 2:
             return None, None
 

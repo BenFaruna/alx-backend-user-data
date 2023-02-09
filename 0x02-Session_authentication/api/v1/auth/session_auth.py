@@ -16,7 +16,6 @@ class SessionAuth(Auth):
         if user_id is None or type(user_id) != str:
             return None
 
-
         session_id = str(uuid.uuid4())
         SessionAuth.user_id_by_session_id[session_id] = user_id
         return session_id
@@ -33,3 +32,17 @@ class SessionAuth(Auth):
         cookie_key = self.session_cookie(request)
         user_id = self.user_id_by_session_id.get(cookie_key)
         return User.get(user_id)
+
+    def destroy_session(self, request=None):
+        """deletes the user session/logout"""
+        if request is None:
+            return False
+        else:
+            session_id = self.session_cookie(request)
+            if session_id is None:
+                return False
+            elif self.user_id_by_session_id.get(session_id) is None:
+                return False
+            else:
+                self.user_id_by_session_id.pop(session_id)
+                return True

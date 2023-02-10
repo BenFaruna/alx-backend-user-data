@@ -2,7 +2,7 @@
 """module handles all routes for the Session authentication"""
 import os
 
-from flask import abort, jsonify, request, session
+from flask import abort, jsonify, request
 
 from api.v1.views import app_views
 from models.user import User
@@ -31,7 +31,6 @@ def session_auth_login():
         from api.v1.app import auth
         output = jsonify(user.to_json())
         session_id = auth.create_session(user.id)
-        print(session_id)
         output.set_cookie(os.getenv('SESSION_NAME'), session_id)
         return output
 

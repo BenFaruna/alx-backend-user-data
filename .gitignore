@@ -131,3 +131,4 @@ dmypy.json
 # custom ignore
 **/.DS_Store
 .db_User.json
+*.db

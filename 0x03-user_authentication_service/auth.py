@@ -95,4 +95,3 @@ class Auth:
                 user.id, hashed_password=password, reset_token=None)
         except NoResultFound:
             raise ValueError
-

@@ -13,6 +13,9 @@ from user import User
 
 def _hash_password(password: str) -> bytes:
     """hash password and returns bytes"""
+    if type(password) != str:
+        password = str(password)
+
     salt = bcrypt.gensalt()
     hash_pw = bcrypt.hashpw(password.encode(), salt)
     return hash_pw
